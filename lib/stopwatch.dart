@@ -43,13 +43,6 @@ class TimerPageState extends State<TimerPage> {
     });
   }
 
-  Widget buildFloatingButton(String text, VoidCallback callback) {
-    TextStyle roundTextStyle =
-        const TextStyle(fontSize: 32.0, color: Colors.white);
-    return new FloatingActionButton(
-        child: new Text(text, style: roundTextStyle), onPressed: callback);
-  }
-
   @override
   Widget build(BuildContext context) {
     return new Column(
@@ -65,12 +58,24 @@ class TimerPageState extends State<TimerPage> {
             child: new Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                OutlineButton(
-                    child: Text("Reset"), onPressed: leftButtonPressed),
-                OutlineButton(
+                ButtonTheme(
+  minWidth: 120.0,
+  height: 60.0,
+  child:OutlineButton(
+                    child: Text("Reset", style: TextStyle(fontSize: 24.0)),
+                    onPressed: leftButtonPressed,
+                    shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(10.0)))),
+                ButtonTheme(
+  minWidth: 120.0,
+  height: 60.0,
+  child:OutlineButton(
                     child: Text(
-                        dependencies.stopwatch.isRunning ? "Stop" : "Start"),
-                    onPressed: rightButtonPressed),
+                        dependencies.stopwatch.isRunning ? "Stop" : "Start",
+                        style: TextStyle(fontSize: 24.0)),
+                    onPressed: rightButtonPressed,
+                    shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(10.0)))),
               ],
             ),
           ),
@@ -182,8 +187,7 @@ class MinutesAndSecondsState extends State<MinutesAndSeconds> {
     String minutesStr = (minutes % 60).toString().padLeft(2, '0');
     String secondsStr = (seconds % 60).toString().padLeft(2, '0');
     if (minutes < 1) {
-      return new Text('$minutesStr:$secondsStr',
-          style: dependencies.textStyle);
+      return new Text('$minutesStr:$secondsStr', style: dependencies.textStyle);
     } else {
       return new Text('$hoursStr:$minutesStr', style: dependencies.textStyle);
     }
