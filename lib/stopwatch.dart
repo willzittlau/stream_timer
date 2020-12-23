@@ -1,23 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-class ElapsedTime {
-  final int seconds;
-  final int minutes;
-  final int hours;
-
-  ElapsedTime({this.seconds, this.minutes, this.hours});
-}
-
-class Dependencies {
-  final List<ValueChanged<ElapsedTime>> timerListeners =
-      <ValueChanged<ElapsedTime>>[];
-  final TextStyle textStyle =
-      const TextStyle(fontSize: 120.0, fontFamily: "Bebas Neue");
-  final Stopwatch stopwatch = new Stopwatch();
-  final int timerMillisecondsRefreshRate = 500;
-}
-
 class TimerPage extends StatefulWidget {
   TimerPage({Key key}) : super(key: key);
 
@@ -59,23 +42,23 @@ class TimerPageState extends State<TimerPage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 ButtonTheme(
-  minWidth: 120.0,
-  height: 60.0,
-  child:OutlineButton(
-                    child: Text("Reset", style: TextStyle(fontSize: 24.0)),
-                    onPressed: leftButtonPressed,
-                    shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(10.0)))),
+                    minWidth: 120.0,
+                    height: 60.0,
+                    child: OutlineButton(
+                        child: Text("Reset", style: TextStyle(fontSize: 24.0)),
+                        onPressed: leftButtonPressed,
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(10.0)))),
                 ButtonTheme(
-  minWidth: 120.0,
-  height: 60.0,
-  child:OutlineButton(
-                    child: Text(
-                        dependencies.stopwatch.isRunning ? "Stop" : "Start",
-                        style: TextStyle(fontSize: 24.0)),
-                    onPressed: rightButtonPressed,
-                    shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(10.0)))),
+                    minWidth: 120.0,
+                    height: 60.0,
+                    child: OutlineButton(
+                        child: Text(
+                            dependencies.stopwatch.isRunning ? "Stop" : "Start",
+                            style: TextStyle(fontSize: 24.0)),
+                        onPressed: rightButtonPressed,
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(10.0)))),
               ],
             ),
           ),
@@ -192,4 +175,21 @@ class MinutesAndSecondsState extends State<MinutesAndSeconds> {
       return new Text('$hoursStr:$minutesStr', style: dependencies.textStyle);
     }
   }
+}
+
+class ElapsedTime {
+  final int seconds;
+  final int minutes;
+  final int hours;
+
+  ElapsedTime({this.seconds, this.minutes, this.hours});
+}
+
+class Dependencies {
+  final List<ValueChanged<ElapsedTime>> timerListeners =
+      <ValueChanged<ElapsedTime>>[];
+  final TextStyle textStyle =
+      const TextStyle(fontSize: 120.0, fontFamily: "Bebas Neue");
+  final Stopwatch stopwatch = new Stopwatch();
+  final int timerMillisecondsRefreshRate = 500;
 }
