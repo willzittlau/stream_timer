@@ -32,30 +32,34 @@ class TimerPageState extends State<TimerPage> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         new Expanded(
+          child: new Padding(
+            padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.075),
+    child: FittedBox(
+        fit: BoxFit.contain,
           child: new TimerText(dependencies: dependencies),
-        ),
+        ))),
         new Expanded(
           flex: 0,
           child: new Padding(
-            padding: const EdgeInsets.symmetric(vertical: 64.0),
+            padding: const EdgeInsets.only(bottom: 64.0),
             child: new Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 ButtonTheme(
-                    minWidth: 120.0,
-                    height: 60.0,
+                    minWidth: MediaQuery.of(context).size.width * 0.14,
+                    height: MediaQuery.of(context).size.width * 0.06,
                     child: OutlineButton(
-                        child: Text("Reset", style: TextStyle(fontSize: 24.0)),
+                        child: Text("Reset", style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.03)),
                         onPressed: leftButtonPressed,
                         shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(10.0)))),
                 ButtonTheme(
-                    minWidth: 120.0,
-                    height: 60.0,
+                    minWidth: MediaQuery.of(context).size.width * 0.14,
+                    height: MediaQuery.of(context).size.width * 0.06,
                     child: OutlineButton(
                         child: Text(
                             dependencies.stopwatch.isRunning ? "Stop" : "Start",
-                            style: TextStyle(fontSize: 24.0)),
+                            style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.03)),
                         onPressed: rightButtonPressed,
                         shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(10.0)))),

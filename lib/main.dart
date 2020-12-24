@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
                               inactiveThumbColor: (appState.isDarkMode
                                   ? Colors.white
                                   : Colors.black),
-                                  inactiveTrackColor: Colors.grey[400],
+                              inactiveTrackColor: Colors.grey[400],
                               activeTrackColor: Colors.grey[600],
                               onChanged: (boolVal) {
                                 Provider.of<AppStateNotifier>(context,
@@ -55,7 +55,18 @@ class MyApp extends StatelessWidget {
                             ),
                           ],
                         ),
-                        body: new Container(child: new TimerPage()),
+                        body: Stack(children: <Widget>[
+                          Container(
+                            height: double.infinity,
+                            width: double.infinity,
+                            child: GestureDetector(
+                              onTap: () {
+                                print('hello');
+                              },
+                            ),
+                          ),
+                          Container(child: new TimerPage())
+                        ]),
                       )));
         }));
   }
