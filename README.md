@@ -12,5 +12,5 @@ Fixed Text - Once 60s has passed, the seconds column becomes minutes, removing d
 
 ![](https://raw.githubusercontent.com/willzittlau/zen_timer/main/assets/images/focus_mode.gif)
 
-![](https://raw.githubusercontent.com/willzittlau/zen_timer/main/assets/images/light_mode.gif)
-![](https://raw.githubusercontent.com/willzittlau/zen_timer/main/assets/images/dark_mode.gif)
+![](https://raw.githubusercontent.com/willzittlau/zen_timer/main/assets/images/light_mode.PNG)
+![](https://raw.githubusercontent.com/willzittlau/zen_timer/main/assets/images/dark_mode.PNG)
