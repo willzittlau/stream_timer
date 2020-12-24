@@ -47,7 +47,7 @@ class TimerPageState extends State<TimerPage> {
               new Align(
                 alignment: Alignment.bottomCenter,
                 child: new Padding(
-                  padding: const EdgeInsets.only(bottom: 48),
+                  padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.width > MediaQuery.of(context).size.height ? 24 : 64),
                   child: FutureBuilder(
                       future:
                           Provider.of<AppStateNotifier>(context, listen: false)
