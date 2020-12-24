@@ -1,4 +1,0 @@
-io/flutter/plugins/GeneratedPluginRegistrant.java
- io.flutter.plugins.GeneratedPluginRegistrant
-com/example/zen_timer/BuildConfig.java
- com.example.zen_timer.BuildConfig
