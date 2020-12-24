@@ -23,6 +23,7 @@ environment:
 dependencies:
   provider: ^4.3.2+3
   shared_preferences: ^0.5.12+4
+  wakelock: ^0.2.1+1
   flutter:
     sdk: flutter
 

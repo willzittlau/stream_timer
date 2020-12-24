@@ -38,11 +38,11 @@ class TimerPageState extends State<TimerPage> {
             children: <Widget>[
               new Align(
                   alignment: Alignment.center,
-                        child: Container(
-              width: MediaQuery.of(context).size.width*0.8,
-              child: FittedBox(
-                fit: BoxFit.contain,
-                child: new TimerText(dependencies: dependencies),
+                  child: Container(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      child: FittedBox(
+                        fit: BoxFit.contain,
+                        child: new TimerText(dependencies: dependencies),
                       ))),
               new Align(
                 alignment: Alignment.bottomCenter,
@@ -62,31 +62,37 @@ class TimerPageState extends State<TimerPage> {
                                     children: <Widget>[
                                       ButtonTheme(
                                           minWidth: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.14,
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.06,
+                                                      .size
+                                                      .width <
+                                                  1024
+                                              ? 128
+                                              : 256,
+                                          height:
+                                              MediaQuery.of(context).size.width < 1024
+                                                  ? 64
+                                                  : 128,
                                           child: OutlineButton(
                                               child: Text("Reset",
                                                   style: TextStyle(
                                                       fontSize:
                                                           MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.03)),
+                                                                      .size
+                                                                      .width <
+                                                                  1024
+                                                              ? 32
+                                                              : 64)),
                                               onPressed: leftButtonPressed,
                                               shape: new RoundedRectangleBorder(
                                                   borderRadius:
-                                                      new BorderRadius.circular(
-                                                          10.0)))),
+                                                      new BorderRadius.circular(10.0)))),
                                       ButtonTheme(
-                                          minWidth: MediaQuery.of(context).size.width *
-                                              0.14,
-                                          height: MediaQuery.of(context).size.width *
-                                              0.06,
+                                          minWidth:
+                                              MediaQuery.of(context).size.width < 1024
+                                                  ? 128
+                                                  : 256,
+                                          height: MediaQuery.of(context).size.width < 1024
+                                              ? 64
+                                              : 128,
                                           child: OutlineButton(
                                               child: Text(
                                                   dependencies.stopwatch.isRunning
@@ -94,10 +100,9 @@ class TimerPageState extends State<TimerPage> {
                                                       : "Start",
                                                   style: TextStyle(
                                                       fontSize:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.03)),
+                                                          MediaQuery.of(context).size.width < 1024
+                                                              ? 32
+                                                              : 64)),
                                               onPressed: rightButtonPressed,
                                               shape: new RoundedRectangleBorder(
                                                   borderRadius:
@@ -165,8 +170,8 @@ class TimerTextState extends State<TimerText> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         new RepaintBoundary(
-            child: new MinutesAndSeconds(dependencies: dependencies),
-          ),
+          child: new MinutesAndSeconds(dependencies: dependencies),
+        ),
       ],
     );
   }

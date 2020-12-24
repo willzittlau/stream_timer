@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wakelock/wakelock.dart';
 import 'stopwatch.dart';
 import 'AppState.dart';
 
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
               themeMode: appState.isDarkMode ? ThemeMode.dark : ThemeMode.light,
               home: Builder(
                   builder: (context) => Scaffold(
-                    extendBodyBehindAppBar: true,
+                        extendBodyBehindAppBar: true,
                         appBar: appState.hideScreen
                             ? null
                             : AppBar(
@@ -63,10 +64,14 @@ class MyApp extends StatelessWidget {
                             height: double.infinity,
                             width: double.infinity,
                             child: GestureDetector(
-                              onTap: () {
+                              onTap: () async {
                                 Provider.of<AppStateNotifier>(context,
                                         listen: false)
                                     .updateScreen();
+                                    await Provider.of<AppStateNotifier>(context,
+                                            listen: false)
+                                        .getScreen();
+                                Wakelock.toggle(enable: appState.hideScreen);
                               },
                             ),
                           ),
