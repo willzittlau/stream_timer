@@ -10,5 +10,5 @@ Live at https://willzittlau.github.io/zen_timer/
 
 <b>Fixed Text</b> - Once 60s has passed, the seconds column becomes minutes, removing distractions from watching the seconds tick by during long activity. This setting looks great in timelapses where you want to record time in the video but not have ms/s shown.
 
-![](https://raw.githubusercontent.com/willzittlau/zen_timer/main/assets/images/focus_mode.gif)
+![](https://raw.githubusercontent.com/willzittlau/zen_timer/main/assets/images/focusmode.gif)
 ![](https://raw.githubusercontent.com/willzittlau/zen_timer/main/assets/images/lightmode.PNG)
