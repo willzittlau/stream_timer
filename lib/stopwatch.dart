@@ -50,46 +50,63 @@ class TimerPageState extends State<TimerPage> {
                 flex: 0,
                 child: new Padding(
                   padding: const EdgeInsets.only(bottom: 64.0),
-                  child: new Visibility(
-                      visible: appState.hideScreen ? true : false,
-                      child: new Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          ButtonTheme(
-                              minWidth:
-                                  MediaQuery.of(context).size.width * 0.14,
-                              height: MediaQuery.of(context).size.width * 0.06,
-                              child: OutlineButton(
-                                  child: Text("Reset",
-                                      style: TextStyle(
-                                          fontSize: MediaQuery.of(context)
+                  child: FutureBuilder(
+                      future:
+                          Provider.of<AppStateNotifier>(context, listen: false)
+                              .getScreen(),
+                      builder: (BuildContext context, AsyncSnapshot snapshot) =>
+                          snapshot.hasData
+                              ? new Visibility(
+                                  visible: appState.hideScreen ? false : true,
+                                  child: new Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: <Widget>[
+                                      ButtonTheme(
+                                          minWidth: MediaQuery.of(context)
                                                   .size
                                                   .width *
-                                              0.03)),
-                                  onPressed: leftButtonPressed,
-                                  shape: new RoundedRectangleBorder(
-                                      borderRadius:
-                                          new BorderRadius.circular(10.0)))),
-                          ButtonTheme(
-                              minWidth:
-                                  MediaQuery.of(context).size.width * 0.14,
-                              height: MediaQuery.of(context).size.width * 0.06,
-                              child: OutlineButton(
-                                  child: Text(
-                                      dependencies.stopwatch.isRunning
-                                          ? "Stop"
-                                          : "Start",
-                                      style: TextStyle(
-                                          fontSize: MediaQuery.of(context)
+                                              0.14,
+                                          height: MediaQuery.of(context)
                                                   .size
                                                   .width *
-                                              0.03)),
-                                  onPressed: rightButtonPressed,
-                                  shape: new RoundedRectangleBorder(
-                                      borderRadius:
-                                          new BorderRadius.circular(10.0)))),
-                        ],
-                      )),
+                                              0.06,
+                                          child: OutlineButton(
+                                              child: Text("Reset",
+                                                  style: TextStyle(
+                                                      fontSize:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.03)),
+                                              onPressed: leftButtonPressed,
+                                              shape: new RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      new BorderRadius.circular(
+                                                          10.0)))),
+                                      ButtonTheme(
+                                          minWidth: MediaQuery.of(context).size.width *
+                                              0.14,
+                                          height: MediaQuery.of(context).size.width *
+                                              0.06,
+                                          child: OutlineButton(
+                                              child: Text(
+                                                  dependencies.stopwatch.isRunning
+                                                      ? "Stop"
+                                                      : "Start",
+                                                  style: TextStyle(
+                                                      fontSize:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.03)),
+                                              onPressed: rightButtonPressed,
+                                              shape: new RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      new BorderRadius.circular(10.0)))),
+                                    ],
+                                  ))
+                              : Text('Loading')),
                 ),
               ),
             ],
