@@ -31,6 +31,15 @@ class MyApp extends StatelessWidget {
                             ? null
                             : AppBar(
                                 title: new Text("Zen Timer"),
+                                leading: IconButton(
+                                  icon: Icon(
+                                      (appState.isClock
+                                          ? Icons.update
+                                          : Icons.schedule),
+                                      color: (appState.isDarkMode
+                                          ? Colors.white
+                                          : Colors.black)),
+                                ),
                                 actions: <Widget>[
                                   IconButton(
                                     icon: Icon(
@@ -68,10 +77,15 @@ class MyApp extends StatelessWidget {
                                 Provider.of<AppStateNotifier>(context,
                                         listen: false)
                                     .updateScreen();
-                                    await Provider.of<AppStateNotifier>(context,
-                                            listen: false)
-                                        .getScreen();
+                                await Provider.of<AppStateNotifier>(context,
+                                        listen: false)
+                                    .getScreen();
                                 Wakelock.toggle(enable: appState.hideScreen);
+                              },
+                              onDoubleTap: () async {
+                                Provider.of<AppStateNotifier>(context,
+                                        listen: false)
+                                    .updateClock();
                               },
                             ),
                           ),

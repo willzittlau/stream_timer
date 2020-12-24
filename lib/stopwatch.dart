@@ -36,18 +36,52 @@ class TimerPageState extends State<TimerPage> {
             builder: (context, AppStateNotifier appState, child) {
           return new Stack(
             children: <Widget>[
-              new Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      child: FittedBox(
-                        fit: BoxFit.contain,
-                        child: new TimerText(dependencies: dependencies),
-                      ))),
+              FutureBuilder(
+                  future: Provider.of<AppStateNotifier>(context, listen: false)
+                      .getScreen(),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) =>
+                      snapshot.hasData
+                          ? new Visibility(
+                              visible: appState.isClock ? false : true,
+                              child: new Align(
+                                  alignment: Alignment.center,
+                                  child: Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.8,
+                                      child: FittedBox(
+                                        fit: BoxFit.contain,
+                                        child: new Clock(),
+                                      ))))
+                          : Text('Loading')),
+              FutureBuilder(
+                  future: Provider.of<AppStateNotifier>(context, listen: false)
+                      .getScreen(),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) =>
+                      snapshot.hasData
+                          ? new Visibility(
+                              maintainSize: true,
+                              maintainAnimation: true,
+                              maintainState: true,
+                              visible: appState.isClock ? true : false,
+                              child: new Align(
+                                  alignment: Alignment.center,
+                                  child: Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.8,
+                                      child: FittedBox(
+                                        fit: BoxFit.contain,
+                                        child: new TimerText(
+                                            dependencies: dependencies),
+                                      ))))
+                          : Text('Loading')),
               new Align(
                 alignment: Alignment.bottomCenter,
                 child: new Padding(
-                  padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.width > MediaQuery.of(context).size.height ? 24 : 64),
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).size.width >
+                              MediaQuery.of(context).size.height
+                          ? 24
+                          : 64),
                   child: FutureBuilder(
                       future:
                           Provider.of<AppStateNotifier>(context, listen: false)
@@ -55,7 +89,7 @@ class TimerPageState extends State<TimerPage> {
                       builder: (BuildContext context, AsyncSnapshot snapshot) =>
                           snapshot.hasData
                               ? new Visibility(
-                                  visible: appState.hideScreen ? false : true,
+                                  visible: appState.hideScreen | !appState.isClock ? false : true,
                                   child: new Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
@@ -115,6 +149,26 @@ class TimerPageState extends State<TimerPage> {
             ],
           );
         }));
+  }
+}
+
+class Clock extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final clock = Stream<DateTime>.periodic(const Duration(minutes: 1), (_) {
+      return DateTime.now();
+    });
+    return StreamBuilder<DateTime>(
+      stream: clock,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Text(snapshot.data.toIso8601String().substring(11, 16),
+              style: TextStyle(fontSize: 120.0, fontFamily: "Bebas Neue"));
+        }
+        return Text(DateTime.now().toIso8601String().substring(11, 16),
+            style: TextStyle(fontSize: 120.0, fontFamily: "Bebas Neue"));
+      },
+    );
   }
 }
 
