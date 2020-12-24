@@ -25,43 +25,47 @@ class MyApp extends StatelessWidget {
               themeMode: appState.isDarkMode ? ThemeMode.dark : ThemeMode.light,
               home: Builder(
                   builder: (context) => Scaffold(
-                        appBar: AppBar(
-                          title: new Text("Stream Timer"),
-                          actions: <Widget>[
-                            IconButton(
-                              icon: Icon(
-                                  (appState.isDarkMode
-                                      ? Icons.nights_stay
-                                      : Icons.wb_sunny),
-                                  color: (appState.isDarkMode
-                                      ? Colors.white
-                                      : Colors.black)),
-                            ),
-                            Switch(
-                              value: appState.isDarkMode,
-                              activeColor: (appState.isDarkMode
-                                  ? Colors.white
-                                  : Colors.black),
-                              inactiveThumbColor: (appState.isDarkMode
-                                  ? Colors.white
-                                  : Colors.black),
-                              inactiveTrackColor: Colors.grey[400],
-                              activeTrackColor: Colors.grey[600],
-                              onChanged: (boolVal) {
-                                Provider.of<AppStateNotifier>(context,
-                                        listen: false)
-                                    .updateTheme(boolVal);
-                              },
-                            ),
-                          ],
-                        ),
+                        appBar: appState.hideScreen
+                            ? null
+                            : AppBar(
+                                title: new Text("Stream Timer"),
+                                actions: <Widget>[
+                                  IconButton(
+                                    icon: Icon(
+                                        (appState.isDarkMode
+                                            ? Icons.nights_stay
+                                            : Icons.wb_sunny),
+                                        color: (appState.isDarkMode
+                                            ? Colors.white
+                                            : Colors.black)),
+                                  ),
+                                  Switch(
+                                    value: appState.isDarkMode,
+                                    activeColor: (appState.isDarkMode
+                                        ? Colors.white
+                                        : Colors.black),
+                                    inactiveThumbColor: (appState.isDarkMode
+                                        ? Colors.white
+                                        : Colors.black),
+                                    inactiveTrackColor: Colors.grey[400],
+                                    activeTrackColor: Colors.grey[600],
+                                    onChanged: (boolVal) {
+                                      Provider.of<AppStateNotifier>(context,
+                                              listen: false)
+                                          .updateTheme(boolVal);
+                                    },
+                                  ),
+                                ],
+                              ),
                         body: Stack(children: <Widget>[
                           Container(
                             height: double.infinity,
                             width: double.infinity,
                             child: GestureDetector(
                               onTap: () {
-                                print('hello');
+                                Provider.of<AppStateNotifier>(context,
+                                        listen: false)
+                                    .updateScreen();
                               },
                             ),
                           ),

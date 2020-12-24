@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'dart:async';
+import 'AppState.dart';
 
 class TimerPage extends StatefulWidget {
   TimerPage({Key key}) : super(key: key);
@@ -28,47 +30,71 @@ class TimerPageState extends State<TimerPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        new Expanded(
-          child: new Padding(
-            padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.075),
-    child: FittedBox(
-        fit: BoxFit.contain,
-          child: new TimerText(dependencies: dependencies),
-        ))),
-        new Expanded(
-          flex: 0,
-          child: new Padding(
-            padding: const EdgeInsets.only(bottom: 64.0),
-            child: new Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                ButtonTheme(
-                    minWidth: MediaQuery.of(context).size.width * 0.14,
-                    height: MediaQuery.of(context).size.width * 0.06,
-                    child: OutlineButton(
-                        child: Text("Reset", style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.03)),
-                        onPressed: leftButtonPressed,
-                        shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(10.0)))),
-                ButtonTheme(
-                    minWidth: MediaQuery.of(context).size.width * 0.14,
-                    height: MediaQuery.of(context).size.width * 0.06,
-                    child: OutlineButton(
-                        child: Text(
-                            dependencies.stopwatch.isRunning ? "Stop" : "Start",
-                            style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.03)),
-                        onPressed: rightButtonPressed,
-                        shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(10.0)))),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
+    return ChangeNotifierProvider(
+        create: (_) => AppStateNotifier(),
+        child: Consumer<AppStateNotifier>(
+            builder: (context, AppStateNotifier appState, child) {
+          return new Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              new Expanded(
+                  child: new Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal:
+                              MediaQuery.of(context).size.width * 0.075),
+                      child: FittedBox(
+                        fit: BoxFit.contain,
+                        child: new TimerText(dependencies: dependencies),
+                      ))),
+              new Expanded(
+                flex: 0,
+                child: new Padding(
+                  padding: const EdgeInsets.only(bottom: 64.0),
+                  child: new Visibility(
+                      visible: appState.hideScreen ? true : false,
+                      child: new Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          ButtonTheme(
+                              minWidth:
+                                  MediaQuery.of(context).size.width * 0.14,
+                              height: MediaQuery.of(context).size.width * 0.06,
+                              child: OutlineButton(
+                                  child: Text("Reset",
+                                      style: TextStyle(
+                                          fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.03)),
+                                  onPressed: leftButtonPressed,
+                                  shape: new RoundedRectangleBorder(
+                                      borderRadius:
+                                          new BorderRadius.circular(10.0)))),
+                          ButtonTheme(
+                              minWidth:
+                                  MediaQuery.of(context).size.width * 0.14,
+                              height: MediaQuery.of(context).size.width * 0.06,
+                              child: OutlineButton(
+                                  child: Text(
+                                      dependencies.stopwatch.isRunning
+                                          ? "Stop"
+                                          : "Start",
+                                      style: TextStyle(
+                                          fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.03)),
+                                  onPressed: rightButtonPressed,
+                                  shape: new RoundedRectangleBorder(
+                                      borderRadius:
+                                          new BorderRadius.circular(10.0)))),
+                        ],
+                      )),
+                ),
+              ),
+            ],
+          );
+        }));
   }
 }
 
