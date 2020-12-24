@@ -34,22 +34,20 @@ class TimerPageState extends State<TimerPage> {
         create: (_) => AppStateNotifier(),
         child: Consumer<AppStateNotifier>(
             builder: (context, AppStateNotifier appState, child) {
-          return new Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+          return new Stack(
             children: <Widget>[
-              new Expanded(
-                  child: new Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal:
-                              MediaQuery.of(context).size.width * 0.075),
-                      child: FittedBox(
-                        fit: BoxFit.contain,
-                        child: new TimerText(dependencies: dependencies),
+              new Align(
+                  alignment: Alignment.center,
+                        child: Container(
+              width: MediaQuery.of(context).size.width*0.8,
+              child: FittedBox(
+                fit: BoxFit.contain,
+                child: new TimerText(dependencies: dependencies),
                       ))),
-              new Expanded(
-                flex: 0,
+              new Align(
+                alignment: Alignment.bottomCenter,
                 child: new Padding(
-                  padding: const EdgeInsets.only(bottom: 64.0),
+                  padding: const EdgeInsets.only(bottom: 56),
                   child: FutureBuilder(
                       future:
                           Provider.of<AppStateNotifier>(context, listen: false)
@@ -167,11 +165,8 @@ class TimerTextState extends State<TimerText> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         new RepaintBoundary(
-          child: new SizedBox(
-            height: 200.0,
             child: new MinutesAndSeconds(dependencies: dependencies),
           ),
-        ),
       ],
     );
   }

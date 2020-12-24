@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
               themeMode: appState.isDarkMode ? ThemeMode.dark : ThemeMode.light,
               home: Builder(
                   builder: (context) => Scaffold(
+                    extendBodyBehindAppBar: true,
                         appBar: appState.hideScreen
                             ? null
                             : AppBar(
