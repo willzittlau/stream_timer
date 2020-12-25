@@ -270,7 +270,7 @@ class MinutesAndSecondsState extends State<MinutesAndSeconds> {
     String hoursStr = (hours % 60).toString().padLeft(2, '0');
     String minutesStr = (minutes % 60).toString().padLeft(2, '0');
     String secondsStr = (seconds % 60).toString().padLeft(2, '0');
-    if (minutes < 1) {
+    if (hours < 1) {
       return new Text('$minutesStr:$secondsStr', style: dependencies.textStyle);
     } else {
       return new Text('$hoursStr:$minutesStr', style: dependencies.textStyle);
