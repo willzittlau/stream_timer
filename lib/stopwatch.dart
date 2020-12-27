@@ -267,7 +267,7 @@ class MinutesAndSecondsState extends State<MinutesAndSeconds> {
 
   @override
   Widget build(BuildContext context) {
-    String hoursStr = (hours % 60).toString().padLeft(2, '0');
+    String hoursStr = (hours % 100).toString().padLeft(2, '0');
     String minutesStr = (minutes % 60).toString().padLeft(2, '0');
     String secondsStr = (seconds % 60).toString().padLeft(2, '0');
     if (hours < 1) {
