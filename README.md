@@ -10,7 +10,7 @@ Live at https://willzittlau.github.io/zen_timer/
 
 <b>Themes</b> - Simple Light & Dark theme. Tap the switch in the top right to switch between themes.
 
-<b>Fixed Text</b> - Once 60s has passed, the seconds column becomes minutes, removing distractions from watching the seconds tick by during long activity. This setting looks great in timelapses where you want to record time in the video but not have ms/s shown.
+<b>Fixed Text</b> - Once an hour has passed, the seconds column becomes minutes, removing distractions from watching the seconds tick by during long activity. This setting looks great in timelapses where you want to record time in the video but not have ms/s shown. Hours roll over after 99h/59m/59s.
 
 ![](https://raw.githubusercontent.com/willzittlau/zen_timer/main/assets/images/focus_mode.gif)
 
