@@ -2,7 +2,7 @@
 
 An elegantly simple timer app with no distractions. Ideal for long activities or filming timelapses. Built with Flutter.
 
-Live at https://willzittlau.github.io/zen_timer/
+Live at https://brave-albattani-7930b6.netlify.app/#/
 ## Features:
 <b>Focus Mode</b> - Tap the screen to isolate the timer. When focus mode is on the app is set to always awake.
 
