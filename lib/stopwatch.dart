@@ -49,9 +49,22 @@ class TimerPageState extends State<TimerPage> {
                                       width: MediaQuery.of(context).size.width *
                                           0.8,
                                       child: FittedBox(
-                                        fit: BoxFit.contain,
-                                        child: new Clock(),
-                                      ))))
+                                          fit: BoxFit.contain,
+                                          child: FutureBuilder(
+                                            future:
+                                                Provider.of<AppStateNotifier>(
+                                                        context,
+                                                        listen: false)
+                                                    .getHourFormat(),
+                                            builder: (BuildContext context,
+                                                    AsyncSnapshot snapshot) =>
+                                                snapshot.hasData
+                                                    ? Container(
+                                                        child: appState.is24Hr
+                                                            ? new Clock()
+                                                            : new MilitaryClock())
+                                                    : Text('Loading'),
+                                          )))))
                           : Text('Loading')),
               FutureBuilder(
                   future: Provider.of<AppStateNotifier>(context, listen: false)
@@ -89,7 +102,10 @@ class TimerPageState extends State<TimerPage> {
                       builder: (BuildContext context, AsyncSnapshot snapshot) =>
                           snapshot.hasData
                               ? new Visibility(
-                                  visible: appState.hideScreen | !appState.isClock ? false : true,
+                                  visible:
+                                      appState.hideScreen | !appState.isClock
+                                          ? false
+                                          : true,
                                   child: new Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
@@ -146,6 +162,58 @@ class TimerPageState extends State<TimerPage> {
                               : Text('Loading')),
                 ),
               ),
+              new Align(
+                alignment: Alignment.bottomCenter,
+                child: new Padding(
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).size.width >
+                              MediaQuery.of(context).size.height
+                          ? 24
+                          : 64),
+                  child: FutureBuilder(
+                      future:
+                          Provider.of<AppStateNotifier>(context, listen: false)
+                              .getScreen(),
+                      builder: (BuildContext context, AsyncSnapshot snapshot) =>
+                          snapshot.hasData
+                              ? new Visibility(
+                                  visible:
+                                      appState.hideScreen | appState.isClock
+                                          ? false
+                                          : true,
+                                  child: new Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: <Widget>[
+                                      ButtonTheme(
+                                          minWidth:
+                                              MediaQuery.of(context).size.width < 1024
+                                                  ? 128
+                                                  : 256,
+                                          height:
+                                              MediaQuery.of(context).size.width < 1024
+                                                  ? 64
+                                                  : 128,
+                                          child: OutlineButton(
+                                              child: Text(appState.is24Hr ? "24 H" : "12 H",
+                                                  style: TextStyle(
+                                                      fontSize:
+                                                          MediaQuery.of(context)
+                                                                      .size
+                                                                      .width <
+                                                                  1024
+                                                              ? 32
+                                                              : 64)),
+                                              onPressed: () =>
+                                                  appState.updateHourFormat(),
+                                              shape: new RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      new BorderRadius.circular(10.0)))),
+                                    ],
+                                  ))
+                              : Text('Loading')),
+                ),
+              ),
             ],
           );
         }));
@@ -161,10 +229,32 @@ class Clock extends StatelessWidget {
     return StreamBuilder<DateTime>(
       stream: clock,
       builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return Text(snapshot.data.toIso8601String().substring(11, 16),
+        if (int.parse(DateTime.now().toIso8601String().substring(11, 13)) >=
+            13) {
+          return Text(
+              DateTime.now()
+                  .subtract(new Duration(hours: 12))
+                  .toIso8601String()
+                  .substring(11, 16),
+              style: TextStyle(fontSize: 120.0, fontFamily: "Bebas Neue"));
+        } else {
+          return Text(DateTime.now().toIso8601String().substring(11, 16),
               style: TextStyle(fontSize: 120.0, fontFamily: "Bebas Neue"));
         }
+      },
+    );
+  }
+}
+
+class MilitaryClock extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final clock = Stream<DateTime>.periodic(const Duration(minutes: 1), (_) {
+      return DateTime.now();
+    });
+    return StreamBuilder<DateTime>(
+      stream: clock,
+      builder: (context, snapshot) {
         return Text(DateTime.now().toIso8601String().substring(11, 16),
             style: TextStyle(fontSize: 120.0, fontFamily: "Bebas Neue"));
       },
